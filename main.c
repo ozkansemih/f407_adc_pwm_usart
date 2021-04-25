@@ -28,7 +28,7 @@ void ADC_inits(){
 	ADC_CommonInitTypeDef ADC_CommonInitStructure;
 	
 	ADC_CommonInitStructure.ADC_Mode = ADC_Mode_Independent;
-	ADC_CommonInitStructure.ADC_Prescaler = ADC_Prescaler_Div4; // 4/8/16.. vs olabilir kristalin 4 de 1 i seçtik
+	ADC_CommonInitStructure.ADC_Prescaler = ADC_Prescaler_Div4; // 4/8/16.. vs olabilir kristalin 4 de 1 i seÃ§tik
 	ADC_CommonInit(& ADC_CommonInitStructure);
 	
 	ad.ADC_Resolution = ADC_Resolution_12b; //8bitlik okuma islemi yapilacak
@@ -67,54 +67,6 @@ void usart_init(){
 
 }
 
-void pwm_test1(){
-
-	RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOD , ENABLE );
-	RCC_APB1PeriphClockCmd ( RCC_APB1Periph_TIM4 , ENABLE );
-
-	GPIO_InitTypeDef gp;
-	TIM_TimeBaseInitTypeDef timb;
-	TIM_OCInitTypeDef timoc;
-
-
-	gp.GPIO_Mode = GPIO_Mode_AF;
-	gp.GPIO_OType = GPIO_OType_PP;
-	gp.GPIO_PuPd = GPIO_PuPd_UP;
-	gp.GPIO_Speed = GPIO_Speed_100MHz;
-	gp.GPIO_Pin = GPIO_Pin_12  | GPIO_Pin_13  | GPIO_Pin_14  | GPIO_Pin_15 ;
-	GPIO_Init ( GPIOD , & gp );
-
-	GPIO_PinAFConfig ( GPIOD , GPIO_PinSource12 , GPIO_AF_TIM4 );
-	GPIO_PinAFConfig ( GPIOD , GPIO_PinSource13 , GPIO_AF_TIM4 );
-	GPIO_PinAFConfig ( GPIOD , GPIO_PinSource14 , GPIO_AF_TIM4 );
-	GPIO_PinAFConfig ( GPIOD , GPIO_PinSource15 , GPIO_AF_TIM4 );
-
-	timb.TIM_Prescaler = 254 ;
-	timb.TIM_Period = 249;
-	timb.TIM_CounterMode = TIM_CounterMode_Up;
-	timb.TIM_ClockDivision = 0;
-	TIM_TimeBaseInit(TIM4 , &timb );
-
-	timoc.TIM_OCMode = TIM_OCMode_PWM1 ;
-	timoc.TIM_OutputState = TIM_OutputNState_Enable ;
-	timoc.TIM_Pulse = 200;
-	timoc.TIM_OCPolarity = TIM_OCPolarity_High ;
-
-	TIM_OC1Init( TIM4 , &timoc );
-	TIM_OC1PreloadConfig(TIM4 , TIM_OCPreload_Enable );	
-
-	TIM_OC2Init( TIM4 , &timoc );
-	TIM_OC2PreloadConfig(TIM4 , TIM_OCPreload_Enable );	
-
-	TIM_OC3Init( TIM4 , &timoc );
-	TIM_OC3PreloadConfig(TIM4 , TIM_OCPreload_Enable );	
-
-	TIM_OC4Init( TIM4 , &timoc );
-	TIM_OC4PreloadConfig(TIM4 , TIM_OCPreload_Enable );	
-	TIM_ARRPreloadConfig(TIM4, ENABLE);
-
-	TIM_Cmd(TIM4, ENABLE);
-}
 void pwm_test2(){
 
 	RCC_AHB1PeriphClockCmd ( RCC_AHB1Periph_GPIOB , ENABLE );
